@@ -3,106 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driving Empire Credits Store</title>
+    <title>Driving Empire Elite | Cash Store</title>
     <style>
-        :root { --primary: #00e676; --bg: #0f0f0f; --card: #1a1a1a; --text: #ffffff; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 40px 20px; margin: 0; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .header h1 { font-size: 2.5rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; }
-        
-        .input-box { background: var(--card); padding: 25px; border-radius: 12px; border: 1px solid #333; width: 100%; max-width: 400px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input[type="text"] { width: 90%; padding: 12px; margin-top: 15px; border-radius: 6px; border: 1px solid #444; background: #111; color: var(--primary); font-size: 1rem; text-align: center; outline: none; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1000px; }
-        .card { background: var(--card); border-radius: 15px; padding: 30px; text-align: center; border: 1px solid #333; transition: 0.3s ease; }
-        .card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 230, 118, 0.2); }
-        .amount { font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
-        .price { color: #888; font-size: 1.1rem; margin-bottom: 25px; }
-        
-        .buy-btn { background: var(--primary); color: #000; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-        .buy-btn:hover { background: #00c853; transform: scale(1.02); }
+        @import url('https://googleapis.com');
+
+        :root { 
+            --primary: #00e676; 
+            --accent: #00e6ff;
+            --gold: #ffd700;
+            --bg: #050505; 
+            --card: #111111; 
+            --text: #ffffff; 
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin: 0;
+            padding-bottom: 100px;
+        }
+
+        /* Hero Header */
+        .hero {
+            width: 100%;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(5,5,5,1)), url('https://wallpaperaccess.com');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .hero h1 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem; 
+            color: var(--primary); 
+            margin: 0;
+            text-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
+        }
+
+        /* Notification Ticker */
+        .ticker {
+            background: #1a1a1a;
+            width: 100%;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 1px solid #333;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        /* Input Container */
+        .main-container { width: 90%; max-width: 1200px; margin-top: -40px; }
+
+        .user-panel {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #222;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            margin-bottom: 40px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            max-width: 400px;
+            padding: 15px;
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            transition: 0.3s;
+        }
+        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary); }
+
+        /* Grid System */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            border: 1px solid #222;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .card:hover { transform: scale(1.05); border-color: var(--primary); }
+
+        .card.hot { border-color: var(--gold); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        .card.mega { border-color: var(--accent); }
+
+        .badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .amount { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        .price { color: #888; margin-bottom: 25px; font-size: 1.1rem; }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-green { background: var(--primary); color: #000; }
+        .btn-gold { background: var(--gold); color: #000; }
+        .btn-cyan { background: var(--accent); color: #000; }
+
+        /* FAQ Section */
+        .faq { margin-top: 80px; background: #111; padding: 40px; border-radius: 20px; }
+        .faq h2 { color: var(--primary); }
+        .faq p { color: #888; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Driving Empire Shop</h1>
-        <p>Enter your username and select a package</p>
+    <div class="hero">
+        <h1>EMPIRE ELITE</h1>
+        <p>The #1 Trusted Driving Empire Cash Provider</p>
     </div>
 
-    <!-- Username Input -->
-    <div class="input-box">
-        <label style="font-weight: bold; color: #aaa;">ROBLOX USERNAME</label><br>
-        <input type="text" id="robloxUser" placeholder="Enter Username..." autocomplete="off">
-    </div>
-
-    <!-- Shop Grid -->
-    <div class="grid">
-        <!-- 1 Million -->
-        <div class="card">
-            <div class="amount">$1,000,000</div>
-            <div class="price">100 Robux</div>
-            <!-- REPLACE LINK BELOW -->
-            <button class="buy-btn" onclick="handlePurchase('1 Million', '100', 'https://create.roblox.com/dashboard/creations/experiences/6838083324/passes/1435816766/configure')">BUY NOW</button>
-        </div>
-
-        <!-- 5 Million -->
-        <div class="card">
-            <div class="amount">$5,000,000</div>
-            <div class="price">500 Robux</div>
-            <!-- REPLACE LINK BELOW -->
-            <button class="buy-btn" onclick="handlePurchase('5 Million', '500', 'https://create.roblox.com/dashboard/creations/experiences/6838083324/passes/1436092638/configure')">BUY NOW</button>
-        </div>
-
-        <!-- 10 Million -->
-        <div class="card">
-            <div class="amount">$10,000,000</div>
-            <div class="price">1,000 Robux</div>
-            <!-- REPLACE LINK BELOW -->
-            <button class="buy-btn" onclick="handlePurchase('10 Million', '1,000', 'https://create.roblox.com/dashboard/creations/experiences/6838083324/passes/1436092638/configure')">BUY NOW</button>
+    <div class="ticker">
+        <div class="ticker-content">
+            🔥 RECENT ORDER: Player 'ShadowRunner' just bought $100M Pack! • 💎 RESTOCKED: $500M Global Limit Reset • ✅ STATUS: All Systems Operational • 🚀 FAST DELIVERY ACTIVE
         </div>
     </div>
+
+    <div class="main-container">
+        <div class="user-panel">
+            <label style="display:block; margin-bottom: 10px; font-weight: bold;">STEP 1: ENTER ROBLOX USERNAME</label>
+            <input type="text" id="robloxUser" placeholder="Username (Case Sensitive)" autocomplete="off">
+        </div>
+
+        <div class="grid">
+            <!-- BUDGET TIERS -->
+            <div class="card">
+                <div class="badge" style="background:#444">BUDGET</div>
+                <div class="amount">$500,000</div>
+                <div class="price">50 Robux</div>
+                <button class="btn btn-green" onclick="buy('500k', 50, '1436036576')">PURCHASE</button>
+            </div>
+
+            <div class="card">
+                <div class="badge" style="background:#444">STARTER</div>
+                <div class="amount">$1,000,000</div>
+                <div class="price">100 Robux</div>
+                <button class="btn btn-green" onclick="buy('1M', 100, '1780627368')">PURCHASE</button>
+            </div>
+
+            <!-- MID TIERS -->
+            <div class="card hot">
+                <div class="badge" style="background:var(--gold); color:black">MOST POPULAR</div>
+                <div class="amount">$10,000,000</div>
+                <div class="price">1,000 Robux</div>
+                <button class="btn btn-gold" onclick="buy('10M', 1000, '1436092638')">PURCHASE</button>
+            </div>
+
+            <div class="card">
+                <div class="badge" style="background:#444">PRO</div>
+                <div class="amount">$25,000,000</div>
+                <div class="price">2,500 Robux</div>
+                <button class="btn btn-green" onclick="buy('25M', 2500, '1781959252')">PURCHASE</button>
+            </div>
+
+            <!-- HIGH TIERS -->
+            <div class="card mega">
+                <div class="badge" style="background:var(--accent); color:black">WHALE PACK</div>
+                <div class="amount">$100,000,000</div>
+                <div class="price">10,000 Robux</div>
+                <button class="btn btn-cyan" onclick="buy('100M', 10000, '1436108548')">PURCHASE</button>
+            </div>
+
+            <div class="card mega">
+                <div class="badge" style="background:var(--accent); color:black">OVERLORD</div>
+                <div class="amount">$250,000,000</div>
+                <div class="price">20,000 Robux</div>
+                <button class="btn btn-cyan" onclick="buy('250M', 20000, '1779301420')">PURCHASE</button>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h2>How does it work?</h2>
+            <p>1. Enter your Roblox username above.<br>
+               2. Choose your cash package and complete the Robux purchase.<br>
+               3. Your order is logged instantly. Meet our delivery bot in-game within 24 hours to receive your cash via the car dealership transfer system.</p>
+            <p><small>*Disclaimer: We are not responsible for game updates that may change transfer limits.</small></p>
+        </div>
+    </div>
+
+    <footer>
+        <p style="color:#333; margin-top:50px;">© 2024 EMPIRE ELITE SERVICES</p>
+    </footer>
 
     <script>
-        function handlePurchase(cashAmount, robuxPrice, gamepassURL) {
+        function buy(cash, robux, passId) {
             const user = document.getElementById('robloxUser').value;
-
-            // 1. Check for Username
-            if (!user || user.length < 3) {
-                alert("Please enter your Roblox Username first!");
+            if(!user || user.length < 3) {
+                alert("PLEASE ENTER YOUR USERNAME FIRST!");
                 return;
             }
 
-            // 2. PASTE YOUR WEBHOOK HERE
-            const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1489060265743089817/w-rxkqTWfbnoOSp8nnKlZk7-7oLj5g8RwgbF3LQOEox2faMSaDK0AWw9ZecyqjcLelJ_"; 
+            const webhook = "https://discord.com/api/webhooks/1489060265743089817/w-rxkqTWfbnoOSp8nnKlZk7-7oLj5g8RwgbF3LQOEox2faMSaDK0AWw9ZecyqjcLelJ_";
 
-            // 3. Send data to Discord
-            const payload = {
-                username: "Store Order Log",
-                embeds: [{
-                    title: "🛒 NEW PENDING ORDER",
-                    color: 3066993,
-                    fields: [
-                        { name: "User", value: user, inline: true },
-                        { name: "Package", value: cashAmount + " Cash", inline: true },
-                        { name: "Price", value: robuxPrice + " Robux", inline: true }
-                    ],
-                    footer: { text: "User redirected to specific Game Pass" },
-                    timestamp: new Date()
-                }]
-            };
-
-            // Sends to discord, but doesn't wait (so redirect is instant)
-            fetch(DISCORD_WEBHOOK, {
+            // Send to Discord
+            fetch(webhook, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(err => console.error("Webhook failed:", err));
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    embeds: [{
+                        title: "💎 NEW VIP ORDER",
+                        color: 65280,
+                        fields: [
+                            {name: "User", value: user, inline: true},
+                            {name: "Cash", value: cash, inline: true},
+                            {name: "Robux", value: robux.toString(), inline: true}
+                        ],
+                        timestamp: new Date()
+                    }]
+                })
+            });
 
-            // 4. Redirect to the unique Game Pass URL
-            window.location.href = gamepassURL;
+            // Redirect
+            window.location.href = "https://roblox.com" + passId;
         }
     </script>
-
 </body>
 </html>
